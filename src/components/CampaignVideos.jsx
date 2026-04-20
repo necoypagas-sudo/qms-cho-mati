@@ -1,7 +1,7 @@
 // src/components/CampaignVideos.jsx
 // Campaign video carousel for Display View - shows DOH health awareness videos
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 import { getVideo } from "../utils/indexedDB";
 
@@ -11,8 +11,8 @@ export default function CampaignVideos({ videos, settings }) {
   const [isMuted, setIsMuted] = useState(false);
   const [videoUrls, setVideoUrls] = useState({});
 
-  // Filter only uploaded videos
-  const uploadedVideos = videos?.filter(v => v.uploaded) || [];
+  // Filter only uploaded videos - memoized to avoid dependency issues
+  const uploadedVideos = useMemo(() => videos?.filter(v => v.uploaded) || [], [videos]);
 
   // Load video URLs from IndexedDB
   useEffect(() => {

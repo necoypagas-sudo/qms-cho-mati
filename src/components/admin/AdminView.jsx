@@ -3,7 +3,7 @@ import QueueTab from "./QueueTab";
 import ServicesTab from "./ServicesTab";
 import { Zap, Wrench } from "lucide-react";
 
-export default function AdminView({ services, setServices, queues, nowServing, callNext, markDone, clearQueue, settings }) {
+export default function AdminView({ services, setServices, queues, nowServing, callNext, markDone, nextStep, previousStep, clearQueue, settings }) {
   const [tab, setTab] = useState("queue");
 
   return (
@@ -41,6 +41,8 @@ export default function AdminView({ services, setServices, queues, nowServing, c
               nowServing={nowServing} 
               callNext={callNext}
               markDone={markDone}
+              nextStep={nextStep}
+              previousStep={previousStep}
               clearQueue={clearQueue}
               settings={settings}
             />

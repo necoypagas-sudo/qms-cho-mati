@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import { Settings, Save, Upload, Trash2, Film } from "lucide-react";
+// eslint-disable-next-line no-unused-vars
 import { storeVideo, deleteVideo } from "../utils/indexedDB";
 
 export default function SettingsPanel({ settings, onSave, onClose }) {
