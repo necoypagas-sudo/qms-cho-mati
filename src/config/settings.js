@@ -1,5 +1,7 @@
 // src/config/settings.js
 // Global QMS Settings - Editable Configuration
+// Note: Videos are NOT stored in localStorage due to size limits.
+// Use IndexedDB for video storage via utils/indexedDB.js
 
 export const DEFAULT_SETTINGS = {
   organization: {
@@ -73,9 +75,48 @@ export const loadSettings = () => {
   return saved ? JSON.parse(saved) : DEFAULT_SETTINGS;
 };
 
-// Save settings to localStorage
+// Save settings to localStorage (EXCLUDES video data to prevent quota exceeded)
 export const saveSettings = (settings) => {
-  localStorage.setItem("cho_qms_settings", JSON.stringify(settings));
+  // Create a copy without the large video URL data
+  const settingsToSave = {
+    organization: settings.organization,
+    services: settings.services,
+    ticketSettings: settings.ticketSettings,
+    displaySettings: settings.displaySettings,
+    announcements: settings.announcements,
+    healthTips: settings.healthTips,
+    // campaignVideos is NOT saved here - only metadata
+    campaignVideos: (settings.campaignVideos || []).map(v => ({
+      id: v.id,
+      title: v.title,
+      uploaded: v.uploaded,
+      duration: v.duration,
+      // Do NOT include v.url - it's a large base64 string
+    })),
+    videoSettings: settings.videoSettings,
+  };
+  
+  try {
+    localStorage.setItem("cho_qms_settings", JSON.stringify(settingsToSave));
+  } catch (e) {
+    if (e.name === "QuotaExceededError") {
+      console.error("LocalStorage quota exceeded. Clearing old data and retrying...");
+      // Try removing announcements and health tips which are not essential
+      const minimalSettings = {
+        organization: settings.organization,
+        services: settings.services,
+        ticketSettings: settings.ticketSettings,
+        displaySettings: settings.displaySettings,
+        announcements: [],
+        healthTips: [],
+        campaignVideos: settingsToSave.campaignVideos,
+        videoSettings: settings.videoSettings,
+      };
+      localStorage.setItem("cho_qms_settings", JSON.stringify(minimalSettings));
+    } else {
+      throw e;
+    }
+  }
 };
 
 // Reset to defaults

@@ -3,14 +3,38 @@
 
 import React, { useState, useEffect } from "react";
 import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { getVideo } from "../utils/indexedDB";
 
 export default function CampaignVideos({ videos, settings }) {
   const [currentVideoIdx, setCurrentVideoIdx] = useState(0);
   const [isPlaying, setIsPlaying] = useState(settings?.videoSettings?.autoplay ?? true);
   const [isMuted, setIsMuted] = useState(false);
+  const [videoUrls, setVideoUrls] = useState({});
 
   // Filter only uploaded videos
   const uploadedVideos = videos?.filter(v => v.uploaded) || [];
+
+  // Load video URLs from IndexedDB
+  useEffect(() => {
+    const loadVideoUrls = async () => {
+      const urls = {};
+      for (const video of uploadedVideos) {
+        try {
+          const videoData = await getVideo(video.id);
+          if (videoData) {
+            urls[video.id] = videoData;
+          }
+        } catch (error) {
+          console.error(`Error loading video ${video.id}:`, error);
+        }
+      }
+      setVideoUrls(urls);
+    };
+
+    if (uploadedVideos.length > 0) {
+      loadVideoUrls();
+    }
+  }, [uploadedVideos]);
 
   // Move useEffect OUTSIDE conditional return to avoid React Hook rules violation
   useEffect(() => {
@@ -29,6 +53,7 @@ export default function CampaignVideos({ videos, settings }) {
   }
 
   const currentVideo = uploadedVideos[currentVideoIdx];
+  const currentVideoUrl = videoUrls[currentVideo.id];
 
   return (
     <div className="card h-100" style={{ display: "flex", flexDirection: "column", background: "#1a1a1a", border: "2px solid #0d6efd" }}>
@@ -40,22 +65,40 @@ export default function CampaignVideos({ videos, settings }) {
         overflow: "hidden",
         background: "#000"
       }}>
-        <video
-          key={currentVideo.id}
-          src={currentVideo.url}
-          style={{
+        {currentVideoUrl ? (
+          <video
+            key={currentVideo.id}
+            src={currentVideoUrl}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+            }}
+            controls={false}
+            autoPlay={isPlaying}
+            muted={isMuted}
+            loop
+          />
+        ) : (
+          <div style={{
             position: "absolute",
             top: 0,
             left: 0,
             width: "100%",
             height: "100%",
-            objectFit: "contain",
-          }}
-          controls={false}
-          autoPlay={isPlaying}
-          muted={isMuted}
-          loop
-        />
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "#000",
+            color: "#999",
+            fontSize: "14px"
+          }}>
+            Loading video...
+          </div>
+        )}
 
         {/* Overlay Controls */}
         <div style={{

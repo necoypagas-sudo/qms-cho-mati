@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import { Settings, Save, Upload, Trash2, Film } from "lucide-react";
+import { storeVideo, deleteVideo } from "../utils/indexedDB";
 
 export default function SettingsPanel({ settings, onSave, onClose }) {
   const [formData, setFormData] = useState(settings);
@@ -95,16 +96,26 @@ export default function SettingsPanel({ settings, onSave, onClose }) {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
-        const newVideos = [...formData.campaignVideos];
-        newVideos[index] = {
-          ...newVideos[index],
-          url: reader.result,
-          title: file.name,
-          uploaded: true,
-          duration: 0
-        };
-        setFormData({ ...formData, campaignVideos: newVideos });
+      reader.onloadend = async () => {
+        try {
+          const videoId = formData.campaignVideos[index].id;
+          // Store video in IndexedDB instead of localStorage
+          await storeVideo(videoId, reader.result);
+          
+          // Update form data with metadata only (no URL)
+          const newVideos = [...formData.campaignVideos];
+          newVideos[index] = {
+            ...newVideos[index],
+            title: file.name,
+            uploaded: true,
+            duration: 0,
+            // Do NOT store reader.result (large base64 data)
+          };
+          setFormData({ ...formData, campaignVideos: newVideos });
+        } catch (error) {
+          console.error("Error uploading video:", error);
+          alert("Error uploading video. Please try again.");
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -121,6 +132,10 @@ export default function SettingsPanel({ settings, onSave, onClose }) {
   };
 
   const removeVideo = (index) => {
+    const videoId = formData.campaignVideos[index].id;
+    // Also delete from IndexedDB
+    deleteVideo(videoId).catch(err => console.error("Error deleting video from IndexedDB:", err));
+    
     setFormData({
       ...formData,
       campaignVideos: formData.campaignVideos.filter((_, i) => i !== index)

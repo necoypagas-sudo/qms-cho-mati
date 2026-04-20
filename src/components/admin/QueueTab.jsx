@@ -1,5 +1,5 @@
 import React from "react";
-import { Phone, Trash2, SkipForward, ChevronRight, ChevronLeft, Check } from "lucide-react";
+import { Trash2, SkipForward, ChevronRight, ChevronLeft, Check } from "lucide-react";
 
 export default function QueueTab({ services, queues, nowServing, callNext, markDone, nextStep, previousStep, clearQueue, settings }) {
   return (
@@ -230,31 +230,6 @@ export default function QueueTab({ services, queues, nowServing, callNext, markD
                       title="Clear all patients in queue"
                     >
                       <Trash2 size={16} className="me-1" style={{ display: "inline" }} />
-                      Clear Queue
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-                    </button>
-                  )}
-
-                  {q.length > 0 && (
-                    <button
-                      className="btn btn-outline-danger btn-sm"
-                      onClick={() => {
-                        if (window.confirm(`Clear all ${q.length} patients in queue?`)) {
-                          clearQueue(svc.id);
-                        }
-                      }}
-                    >
-                      <Trash2 size={14} className="me-1" style={{ display: "inline" }} />
                       Clear Queue
                     </button>
                   )}
