@@ -242,12 +242,6 @@ export default function QueueTab({ services, queues, nowServing, callNext, markD
     </div>
   );
 }
-
-// Import React for Fragment
-import React from "react";
-                    >
-                      <Phone size={14} className="me-1" style={{ display: "inline" }} />
-                      Mark as Done
                     </button>
                   )}
 

@@ -20,7 +20,7 @@ export default function PhoneModal({ svc, queueCount, nowServing, onConfirm, onC
       pointerEvents: "auto"
     }}>
       <div className="modal-dialog" style={{ maxWidth: "420px", zIndex: 10000, pointerEvents: "auto", animation: "fadeInScale 0.3s ease" }}>
-        <div className="modal-content shadow-lg" style={{ borderRadius: "12px", border: "none", overflow: "hidden" }}
+        <div className="modal-content shadow-lg" style={{ borderRadius: "12px", border: "none", overflow: "hidden" }}>
           {/* Header */}
           <div className="modal-header bg-light border-0">
             <button type="button" className="btn-close" onClick={onCancel}></button>
