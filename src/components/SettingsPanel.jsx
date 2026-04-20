@@ -128,45 +128,53 @@ export default function SettingsPanel({ settings, onSave, onClose }) {
   };
 
   return (
-    <div className="modal-backdrop fade show" style={{ 
-      background: "rgba(0,0,0,0.85)", 
+    <div className="modal-backdrop fade show d-flex align-items-center justify-content-center" style={{ 
+      background: "rgba(0,0,0,0.65)",
+      backdropFilter: "blur(4px)",
       zIndex: 9999,
       position: "fixed",
       top: 0,
       left: 0,
       right: 0,
       bottom: 0,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
       pointerEvents: "auto"
     }}>
       <div className="modal-dialog modal-lg" style={{ 
-        maxWidth: "800px", 
+        maxWidth: "850px", 
         zIndex: 10000,
         pointerEvents: "auto",
-        margin: "auto"
+        margin: "auto",
+        animation: "fadeInScale 0.3s ease"
       }}>
-        <div className="modal-content" style={{ maxHeight: "85vh", display: "flex", flexDirection: "column", background: "white" }}>
+        <div className="modal-content shadow-lg" style={{ maxHeight: "90vh", display: "flex", flexDirection: "column", background: "#ffffff", borderRadius: "12px", border: "none" }}>
           {/* Header */}
-          <div className="modal-header bg-dark text-white border-0" style={{ flex: "0 0 auto" }}>
-            <h5 className="modal-title d-flex gap-2 align-items-center">
-              <Settings size={20} />
-              QMS Settings
+          <div className="modal-header bg-gradient text-white border-0" style={{ flex: "0 0 auto", background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)", padding: "1.5rem" }}>
+            <h5 className="modal-title d-flex gap-3 align-items-center" style={{ fontSize: "1.2rem", fontWeight: "600" }}>
+              <Settings size={24} style={{ color: "#00d4ff" }} />
+              <span>QMS Settings</span>
             </h5>
-            <button type="button" className="btn-close btn-close-white" onClick={onClose}></button>
+            <button type="button" className="btn-close btn-close-white" onClick={onClose} style={{ opacity: 0.8 }}></button>
           </div>
 
           {/* Tabs */}
-          <div className="nav nav-tabs border-bottom" role="tablist" style={{ background: "#f8f9fa", flex: "0 0 auto" }}>
+          <div className="nav nav-tabs border-bottom" role="tablist" style={{ background: "#f8f9fa", flex: "0 0 auto", padding: "0.75rem" }}>
             {["organization", "services", "workflow", "display", "videos", "ticket"].map(tab => (
               <button
                 key={tab}
-                className={`nav-link ${activeTab === tab ? "active" : ""}`}
+                className={`nav-link fw-500 ${activeTab === tab ? "active" : ""}`}
                 onClick={() => setActiveTab(tab)}
-                style={{ textTransform: "capitalize", fontSize: "13px" }}
+                style={{ 
+                  textTransform: "capitalize", 
+                  fontSize: "13px",
+                  fontWeight: "500",
+                  padding: "0.75rem 1rem",
+                  border: "none",
+                  color: activeTab === tab ? "#0d6efd" : "#666",
+                  borderBottom: activeTab === tab ? "3px solid #0d6efd" : "none",
+                  transition: "all 0.2s ease"
+                }}
               >
-                {tab === "videos" && <Film size={14} className="me-1" style={{ display: "inline" }} />}
+                {tab === "videos" && <Film size={14} className="me-2" style={{ display: "inline" }} />}
                 {tab}
               </button>
             ))}
@@ -364,70 +372,158 @@ export default function SettingsPanel({ settings, onSave, onClose }) {
 
             {/* Display Settings */}
             {activeTab === "display" && (
-              <div style={{ display: "grid", gap: "15px" }}>
-                <div>
-                  <label className="form-label fw-semibold" style={{ marginBottom: "6px", fontSize: "13px" }}>
-                    Announcement Interval (ms)
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    value={formData.displaySettings.announcementInterval}
-                    onChange={(e) => handleDisplayChange("announcementInterval", parseInt(e.target.value))}
-                    style={{ fontSize: "14px" }}
-                  />
-                  <small className="text-muted">How long each announcement displays</small>
+              <div style={{ display: "grid", gap: "18px" }}>
+                <div style={{ background: "#f8f9fa", padding: "14px", borderRadius: "8px", borderLeft: "4px solid #0d6efd" }}>
+                  <h6 className="fw-bold mb-3" style={{ fontSize: "0.95rem", color: "#0d6efd" }}>📺 Display Configuration</h6>
+                  
+                  <div style={{ display: "grid", gap: "15px" }}>
+                    <div>
+                      <label className="form-label fw-semibold" style={{ marginBottom: "6px", fontSize: "13px" }}>
+                        Display Font Size
+                      </label>
+                      <input
+                        type="range"
+                        className="form-range"
+                        min="80"
+                        max="150"
+                        value={formData.displaySettings.fontSize || 100}
+                        onChange={(e) => handleDisplayChange("fontSize", parseInt(e.target.value))}
+                      />
+                      <small className="text-muted">{formData.displaySettings.fontSize || 100}% - Adjust size for better visibility</small>
+                    </div>
+
+                    <div>
+                      <label className="form-label fw-semibold" style={{ marginBottom: "6px", fontSize: "13px" }}>
+                        Announcement Interval (milliseconds)
+                      </label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        value={formData.displaySettings.announcementInterval}
+                        onChange={(e) => handleDisplayChange("announcementInterval", parseInt(e.target.value))}
+                        step="1000"
+                        style={{ fontSize: "14px" }}
+                      />
+                      <small className="text-muted">How long each announcement displays (min: 3000ms)</small>
+                    </div>
+
+                    <div>
+                      <label className="form-label fw-semibold" style={{ marginBottom: "6px", fontSize: "13px" }}>
+                        Health Tips Interval (milliseconds)
+                      </label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        value={formData.displaySettings.tipInterval}
+                        onChange={(e) => handleDisplayChange("tipInterval", parseInt(e.target.value))}
+                        step="1000"
+                        style={{ fontSize: "14px" }}
+                      />
+                      <small className="text-muted">How long each health tip displays (min: 3000ms)</small>
+                    </div>
+
+                    <div>
+                      <label className="form-label fw-semibold" style={{ marginBottom: "6px", fontSize: "13px" }}>
+                        Estimated Wait Time Per Patient (minutes)
+                      </label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        value={formData.displaySettings.waitTimePerPatient || 5}
+                        onChange={(e) => handleDisplayChange("waitTimePerPatient", parseInt(e.target.value))}
+                        min="1"
+                        max="60"
+                        style={{ fontSize: "14px" }}
+                      />
+                      <small className="text-muted">Used to calculate and display estimated wait times</small>
+                    </div>
+
+                    <div>
+                      <label className="form-label fw-semibold" style={{ marginBottom: "6px", fontSize: "13px" }}>
+                        Screen Brightness
+                      </label>
+                      <input
+                        type="range"
+                        className="form-range"
+                        min="0"
+                        max="100"
+                        value={formData.displaySettings.screenBrightness}
+                        onChange={(e) => handleDisplayChange("screenBrightness", parseInt(e.target.value))}
+                      />
+                      <div className="text-end"><small>{formData.displaySettings.screenBrightness}%</small></div>
+                    </div>
+
+                    <div>
+                      <label className="form-label fw-semibold" style={{ marginBottom: "6px", fontSize: "13px" }}>
+                        Animation Speed
+                      </label>
+                      <select
+                        className="form-select"
+                        value={formData.displaySettings.animationSpeed || "normal"}
+                        onChange={(e) => handleDisplayChange("animationSpeed", e.target.value)}
+                        style={{ fontSize: "14px" }}
+                      >
+                        <option value="slow">Slow (Better for elderly)</option>
+                        <option value="normal">Normal</option>
+                        <option value="fast">Fast</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label className="form-label fw-semibold" style={{ marginBottom: "6px", fontSize: "13px" }}>
-                    Health Tips Interval (ms)
-                  </label>
-                  <input
-                    type="number"
-                    className="form-control"
-                    value={formData.displaySettings.tipInterval}
-                    onChange={(e) => handleDisplayChange("tipInterval", parseInt(e.target.value))}
-                    style={{ fontSize: "14px" }}
-                  />
-                  <small className="text-muted">How long each health tip displays</small>
-                </div>
-                <div>
-                  <label className="form-label fw-semibold" style={{ marginBottom: "6px", fontSize: "13px" }}>
-                    Screen Brightness (%)
-                  </label>
-                  <input
-                    type="range"
-                    className="form-range"
-                    min="0"
-                    max="100"
-                    value={formData.displaySettings.screenBrightness}
-                    onChange={(e) => handleDisplayChange("screenBrightness", parseInt(e.target.value))}
-                  />
-                  <div className="text-end"><small>{formData.displaySettings.screenBrightness}%</small></div>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="showTips"
-                    checked={formData.displaySettings.showHealthTips}
-                    onChange={(e) => handleDisplayChange("showHealthTips", e.target.checked)}
-                  />
-                  <label className="form-check-label" htmlFor="showTips">
-                    Show Health Tips
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    type="checkbox"
-                    className="form-check-input"
-                    id="showAnn"
-                    checked={formData.displaySettings.showAnnouncements}
-                    onChange={(e) => handleDisplayChange("showAnnouncements", e.target.checked)}
-                  />
-                  <label className="form-check-label" htmlFor="showAnn">
-                    Show Announcements
-                  </label>
+
+                <div style={{ background: "#f8f9fa", padding: "14px", borderRadius: "8px", borderLeft: "4px solid #198754" }}>
+                  <h6 className="fw-bold mb-3" style={{ fontSize: "0.95rem", color: "#198754" }}>🔊 Audio & Notifications</h6>
+                  
+                  <div style={{ display: "grid", gap: "12px" }}>
+                    <div className="form-check">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="enableSound"
+                        checked={formData.displaySettings.enableSound}
+                        onChange={(e) => handleDisplayChange("enableSound", e.target.checked)}
+                      />
+                      <label className="form-check-label" htmlFor="enableSound">
+                        Enable Sound Notifications
+                      </label>
+                    </div>
+                    <div className="form-check">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="showTips"
+                        checked={formData.displaySettings.showHealthTips}
+                        onChange={(e) => handleDisplayChange("showHealthTips", e.target.checked)}
+                      />
+                      <label className="form-check-label" htmlFor="showTips">
+                        Show Health Tips
+                      </label>
+                    </div>
+                    <div className="form-check">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="showAnn"
+                        checked={formData.displaySettings.showAnnouncements}
+                        onChange={(e) => handleDisplayChange("showAnnouncements", e.target.checked)}
+                      />
+                      <label className="form-check-label" htmlFor="showAnn">
+                        Show Announcements
+                      </label>
+                    </div>
+                    <div className="form-check">
+                      <input
+                        type="checkbox"
+                        className="form-check-input"
+                        id="darkMode"
+                        checked={formData.displaySettings.darkMode}
+                        onChange={(e) => handleDisplayChange("darkMode", e.target.checked)}
+                      />
+                      <label className="form-check-label" htmlFor="darkMode">
+                        Dark Mode (for indoor displays)
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}

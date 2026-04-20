@@ -1,0 +1,257 @@
+/* Global QMS Styles - UI/UX Improvements */
+
+/* ========== Animations ========== */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ========== Modal Improvements ========== */
+.modal-backdrop.fade.show {
+  animation: fadeInScale 0.3s ease-out;
+}
+
+.modal-content {
+  animation: slideInDown 0.3s ease-out;
+  border-radius: 12px !important;
+}
+
+.modal-body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* ========== Button Improvements ========== */
+.btn {
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-primary,
+.btn-success,
+.btn-warning,
+.btn-danger {
+  border: none;
+}
+
+/* ========== Card Improvements ========== */
+.card {
+  border-radius: 10px;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  border-radius: 10px 10px 0 0;
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* ========== Form Elements ========== */
+.form-control,
+.form-select {
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+.form-control::placeholder {
+  color: #adb5bd;
+  font-style: italic;
+}
+
+/* ========== Badge Improvements ========== */
+.badge {
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* ========== Alert Improvements ========== */
+.alert {
+  border-radius: 8px;
+  border: none;
+  border-left: 4px solid;
+  animation: slideInUp 0.3s ease-out;
+}
+
+.alert-info {
+  border-left-color: #0dcaf0;
+  background-color: #e7f3ff;
+}
+
+.alert-success {
+  border-left-color: #198754;
+  background-color: #e8f5e9;
+}
+
+.alert-warning {
+  border-left-color: #ffc107;
+  background-color: #fff8e1;
+}
+
+.alert-danger {
+  border-left-color: #dc3545;
+  background-color: #ffebee;
+}
+
+/* ========== Scrollbar Global Styling ========== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ========== Text & Typography ========== */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.3px;
+}
+
+.fw-bold {
+  font-weight: 600 !important;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* ========== Accessibility ========== */
+:focus-visible {
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+/* ========== Responsive Adjustments ========== */
+@media (max-width: 768px) {
+  .card {
+    border-radius: 8px;
+  }
+
+  .btn {
+    border-radius: 5px;
+    font-size: 0.9rem;
+  }
+
+  .modal-dialog {
+    margin: 10px;
+  }
+}
+
+/* ========== Print Styles ========== */
+@media print {
+  .btn,
+  .nav,
+  .modal-backdrop,
+  .navbar {
+    display: none;
+  }
+
+  .card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}
