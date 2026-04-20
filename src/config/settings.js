@@ -13,13 +13,16 @@ export const DEFAULT_SETTINGS = {
     color: "#e40914",
   },
   
+  // Service workflows - Edit steps here as needed for your clinic
+  // Best practice: Keep 2-3 visible steps per service for clarity
+  // Triage should only be used for emergency services
   services: [
-    { id: 1, name: "General Consultation", code: "GC", color: "#0dcaf0", steps: ["Triage", "Consultation", "EMR Encoding"] },
-    { id: 2, name: "Vaccination", code: "VAX", color: "#198754", steps: ["Screening", "Vaccination", "Monitoring"] },
+    { id: 1, name: "General Consultation", code: "GC", color: "#0dcaf0", steps: ["Registration", "Consultation", "Completion"] },
+    { id: 2, name: "Vaccination", code: "VAX", color: "#198754", steps: ["Registration", "Vaccination", "Observation"] },
     { id: 3, name: "Emergency", code: "ER", color: "#dc3545", steps: ["Triage", "Assessment", "Treatment"] },
-    { id: 4, name: "Immunization", code: "IMM", color: "#fd7e14", steps: ["Screening", "Immunization", "Observation"] },
-    { id: 5, name: "Prenatal Check", code: "PC", color: "#6f42c1", steps: ["Registration", "Vitals", "Consultation", "Labs"] },
-    { id: 6, name: "Pediatrics", code: "PED", color: "#20c997", steps: ["Screening", "Consultation", "Follow-up"] },
+    { id: 4, name: "Immunization", code: "IMM", color: "#fd7e14", steps: ["Registration", "Immunization", "Observation"] },
+    { id: 5, name: "Prenatal Check", code: "PC", color: "#6f42c1", steps: ["Registration", "Assessment", "Completion"] },
+    { id: 6, name: "Pediatrics", code: "PED", color: "#20c997", steps: ["Registration", "Consultation", "Completion"] },
   ],
   
   ticketSettings: {
