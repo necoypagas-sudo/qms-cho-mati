@@ -6,9 +6,21 @@ export default function PhoneModal({ svc, queueCount, nowServing, onConfirm, onC
   const [isPriority, setIsPriority] = useState(false);
 
   return (
-    <div className="modal-backdrop fade show d-flex align-items-center justify-content-center" style={{ background: "rgba(0,0,0,0.7)" }}>
-      <div className="modal-dialog" style={{ maxWidth: "420px" }}>
-        <div className="modal-content shadow-lg">
+    <div style={{ 
+      background: "rgba(0,0,0,0.85)",
+      zIndex: 9999,
+      position: "fixed",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      pointerEvents: "auto"
+    }}>
+      <div className="modal-dialog" style={{ maxWidth: "420px", zIndex: 10000, pointerEvents: "auto", animation: "fadeInScale 0.3s ease" }}>
+        <div className="modal-content shadow-lg" style={{ borderRadius: "12px", border: "none", overflow: "hidden" }}
           {/* Header */}
           <div className="modal-header bg-light border-0">
             <button type="button" className="btn-close" onClick={onCancel}></button>

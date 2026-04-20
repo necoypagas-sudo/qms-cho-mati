@@ -128,15 +128,17 @@ export default function SettingsPanel({ settings, onSave, onClose }) {
   };
 
   return (
-    <div className="modal-backdrop fade show d-flex align-items-center justify-content-center" style={{ 
-      background: "rgba(0,0,0,0.65)",
-      backdropFilter: "blur(4px)",
+    <div style={{ 
+      background: "rgba(0,0,0,0.85)",
       zIndex: 9999,
       position: "fixed",
       top: 0,
       left: 0,
-      right: 0,
-      bottom: 0,
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
       pointerEvents: "auto"
     }}>
       <div className="modal-dialog modal-lg" style={{ 
