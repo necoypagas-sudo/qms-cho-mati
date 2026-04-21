@@ -2,7 +2,7 @@
 // STATION 1: Number Issuance - Patient Registration & Ticket Issuance
 
 import React, { useState } from "react";
-import "../styles/Station1.css";
+import "./Station1.css";
 
 const Station1_NumberIssuance = ({ onPatientRegistered, isProcessing = false }) => {
   const [formData, setFormData] = useState({
