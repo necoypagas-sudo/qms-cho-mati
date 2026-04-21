@@ -1,0 +1,146 @@
+/* src/components/styles/StationManager.css */
+
+.station-manager {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+}
+
+/* View Tabs */
+.view-tabs {
+  display: flex;
+  gap: 0;
+  background: white;
+  border-bottom: 3px solid #e9ecef;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.tab {
+  padding: 15px 25px;
+  border: none;
+  background: white;
+  color: #666;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 150px;
+}
+
+.tab:hover:not(:disabled) {
+  background: #f8f9fa;
+  color: #0dcaf0;
+}
+
+.tab.active {
+  color: #0dcaf0;
+  border-bottom-color: #0dcaf0;
+}
+
+.tab:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* View Content */
+.view-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.placeholder {
+  text-align: center;
+  color: #999;
+}
+
+.placeholder h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Queue Status Footer */
+.queue-status-footer {
+  background: white;
+  border-top: 2px solid #e9ecef;
+  padding: 20px;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.status-card {
+  background: white;
+  border: 2px solid #0dcaf0;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.status-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.station-badge {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.station-code {
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+  margin-bottom: 5px;
+  letter-spacing: 1px;
+}
+
+.queue-count {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.serving-status {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .view-tabs {
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    flex: 0 1 auto;
+    padding: 12px 15px;
+    font-size: 13px;
+    min-width: 120px;
+  }
+
+  .status-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+  }
+
+  .station-badge {
+    font-size: 24px;
+  }
+}
