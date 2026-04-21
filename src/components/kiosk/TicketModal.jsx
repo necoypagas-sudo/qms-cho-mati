@@ -7,7 +7,7 @@ export default function TicketModal({ ticket, service, onClose, onPrint, setting
   return (
     <div style={{ 
       background: "rgba(0,0,0,0.85)",
-      zIndex: 9999,
+      zIndex: 10001,
       position: "fixed",
       top: 0,
       left: 0,
@@ -18,7 +18,7 @@ export default function TicketModal({ ticket, service, onClose, onPrint, setting
       justifyContent: "center",
       pointerEvents: "auto"
     }}>
-      <div className="modal-dialog" style={{ maxWidth: "500px", zIndex: 10000, pointerEvents: "auto", animation: "fadeInScale 0.3s ease" }}>
+      <div className="modal-dialog" style={{ maxWidth: "500px", zIndex: 10002, pointerEvents: "auto", animation: "fadeInScale 0.3s ease" }}>
         <div className="modal-content shadow-lg" style={{ borderRadius: "12px", border: "none", overflow: "hidden" }}>
           {/* Header with accent */}
           <div 

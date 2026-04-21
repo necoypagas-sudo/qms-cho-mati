@@ -98,7 +98,7 @@ export default function PhoneModal({ svc, queueCount, nowServing, onConfirm, onC
               type="button"
               className="btn btn-lg fw-bold"
               style={{ background: svc.color, color: "#fff" }}
-              onClick={() => onConfirm(phone)}
+              onClick={() => onConfirm(phone, isPriority)}
             >
               Get Queue Number ✓
             </button>

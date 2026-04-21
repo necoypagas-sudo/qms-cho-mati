@@ -12,7 +12,7 @@ export default function App() {
   const [view, setView] = useState("kiosk");
   const [settings, setSettings] = useState(loadSettings());
   const [showSettings, setShowSettings] = useState(false);
-  const { services, setServices, queues, nowServing, voiceOn, setVoiceOn, takeNumber, callNext, markDone, nextStep, previousStep, clearQueue } = useQMS(settings.services);
+  const { services, setServices, queues, nowServing, voiceOn, setVoiceOn, stats, resetStats, takeNumber, callNext, markDone, nextStep, previousStep, clearQueue } = useQMS(settings.services);
 
   // Update services when settings change
   useEffect(() => {
@@ -46,6 +46,7 @@ export default function App() {
           queues={queues} 
           nowServing={nowServing} 
           takeNumber={takeNumber}
+          stats={stats}
           settings={settings}
         />
       )}
@@ -72,6 +73,8 @@ export default function App() {
           nextStep={nextStep}
           previousStep={previousStep}
           clearQueue={clearQueue}
+          stats={stats}
+          resetStats={resetStats}
           settings={settings}
         />
       )}

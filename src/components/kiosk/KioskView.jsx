@@ -4,7 +4,7 @@ import PhoneModal from "./PhoneModal";
 import TicketModal from "./TicketModal";
 import { printTicket } from "../../utils/printTicket";
 
-export default function KioskView({ services, queues, nowServing, takeNumber, settings }) {
+export default function KioskView({ services, queues, nowServing, takeNumber, stats, settings }) {
   const [selectedSvc, setSelectedSvc] = useState(null);
   const [ticket, setTicket] = useState(null);
   const [showPrint, setShowPrint] = useState(false);
@@ -13,25 +13,32 @@ export default function KioskView({ services, queues, nowServing, takeNumber, se
   const handleTakeNumber = (serviceId, name = "Patient", priority = false) => {
     const t = takeNumber(serviceId, name, priority);
     if (t) {
-      setTicket(t);
+      // Close PhoneModal first before showing TicketModal
+      setSelectedSvc(null);
       
-      // Auto-print if enabled
-      if (settings?.ticketSettings?.autoprint) {
-        setTimeout(() => {
-          printTicket({
-            fullTicketNumber: t.fullTicketNumber,
-            patientName: name,
-            visitPurpose: services.find(s => s.id === serviceId)?.name || "Service",
-            stationName: "Triage Desk",
-            issuedAt: t.issuedAt,
-            isPriority: priority,
-            organizationName: settings.organization.name,
-            organizationLocation: settings.organization.location,
-          });
-        }, 500);
-      }
+      // Show ticket modal after a small delay to ensure previous modal is closed
+      setTimeout(() => {
+        setTicket(t);
+        
+        // Auto-print if enabled
+        if (settings?.ticketSettings?.autoprint) {
+          setTimeout(() => {
+            printTicket({
+              fullTicketNumber: t.fullTicketNumber,
+              patientName: name,
+              visitPurpose: services.find(s => s.id === serviceId)?.name || "Service",
+              stationName: "Triage Desk",
+              issuedAt: t.issuedAt,
+              isPriority: priority,
+              organizationName: settings.organization.name,
+              organizationLocation: settings.organization.location,
+            });
+          }, 500);
+        }
+      }, 300);
+    } else {
+      setSelectedSvc(null);
     }
-    setSelectedSvc(null);
   };
 
   const primaryColor = settings?.organization?.color || "#e40914";
@@ -58,6 +65,8 @@ export default function KioskView({ services, queues, nowServing, takeNumber, se
             {services.map((service) => {
               const queueLength = (queues[service.id] || []).length;
               const nowServingNumber = nowServing[service.id]?.fullTicketNumber;
+              const serviceStat = stats.serviceStats[service.id] || { averageWaitTime: 5 };
+              const estimatedWait = Math.max(serviceStat.averageWaitTime * (queueLength + 1), 5).toFixed(0); // at least 5 min
               
               return (
                 <div key={service.id} className="col-md-6 col-lg-4">
@@ -112,25 +121,35 @@ export default function KioskView({ services, queues, nowServing, takeNumber, se
                         {service.name}
                       </h5>
 
-                      {/* Queue Stats - Two column layout */}
-                      <div className="row g-3 mb-4">
-                        <div className="col-6">
-                          <div style={{ padding: "12px", background: "white", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }}>
-                            <small className="text-muted d-block fw-600" style={{ fontSize: "0.85rem", marginBottom: "4px" }}>
+                      {/* Queue Stats - Three column layout */}
+                      <div className="row g-2 mb-4">
+                        <div className="col-4">
+                          <div style={{ padding: "8px", background: "white", borderRadius: "6px", boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }}>
+                            <small className="text-muted d-block fw-600" style={{ fontSize: "0.75rem", marginBottom: "2px" }}>
                               Now Serving
                             </small>
-                            <div style={{ color: service.color, fontSize: "1.8rem", fontWeight: "900", lineHeight: "1" }}>
+                            <div style={{ color: service.color, fontSize: "1.4rem", fontWeight: "900", lineHeight: "1" }}>
                               {nowServingNumber || "—"}
                             </div>
                           </div>
                         </div>
-                        <div className="col-6">
-                          <div style={{ padding: "12px", background: "white", borderRadius: "8px", boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }}>
-                            <small className="text-muted d-block fw-600" style={{ fontSize: "0.85rem", marginBottom: "4px" }}>
+                        <div className="col-4">
+                          <div style={{ padding: "8px", background: "white", borderRadius: "6px", boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }}>
+                            <small className="text-muted d-block fw-600" style={{ fontSize: "0.75rem", marginBottom: "2px" }}>
                               In Queue
                             </small>
-                            <div style={{ color: service.color, fontSize: "1.8rem", fontWeight: "900", lineHeight: "1" }}>
+                            <div style={{ color: service.color, fontSize: "1.4rem", fontWeight: "900", lineHeight: "1" }}>
                               {queueLength}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-4">
+                          <div style={{ padding: "8px", background: "white", borderRadius: "6px", boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }}>
+                            <small className="text-muted d-block fw-600" style={{ fontSize: "0.75rem", marginBottom: "2px" }}>
+                              Est. Wait
+                            </small>
+                            <div style={{ color: service.color, fontSize: "1.4rem", fontWeight: "900", lineHeight: "1" }}>
+                              {estimatedWait}m
                             </div>
                           </div>
                         </div>
@@ -195,7 +214,7 @@ export default function KioskView({ services, queues, nowServing, takeNumber, se
           svc={selectedSvc}
           queueCount={(queues[selectedSvc.id] || []).length}
           nowServing={nowServing[selectedSvc.id]}
-          onConfirm={(phone) => handleTakeNumber(selectedSvc.id, phone || "Patient", false)}
+          onConfirm={(phone, priority) => handleTakeNumber(selectedSvc.id, phone || "Patient", priority)}
           onCancel={() => setSelectedSvc(null)}
           settings={settings}
         />

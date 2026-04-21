@@ -15,6 +15,10 @@ CHO QMS is a modern, functional, and user-friendly Queue Management System for C
 ✅ **Voice Announcement** - Text-to-speech queue number announcements  
 ✅ **Service Management** - Add, edit, delete services  
 ✅ **Queue Management** - Call next, mark done, clear queue  
+✅ **Priority Queue** - Priority tickets for seniors/PWD/pregnant patients  
+✅ **Statistics Dashboard** - Track served patients and average wait times  
+✅ **Estimated Wait Times** - Show expected wait time on kiosk  
+✅ **Notification Sounds** - Audio alerts when calling next patient  
 ✅ **Customizable Settings** - Edit organization info, colors, display intervals, etc.  
 ✅ **Responsive Design** - Works on desktop, tablet, and large displays  
 ✅ **Modern UI** - Bootstrap 5 + Lucide React icons  
