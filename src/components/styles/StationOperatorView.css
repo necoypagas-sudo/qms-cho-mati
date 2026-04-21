@@ -1,0 +1,346 @@
+/* src/components/styles/StationOperatorView.css */
+/* Station Operator View - Individual station interface */
+
+.station-operator-view {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f5;
+  overflow: hidden;
+}
+
+/* Station Selector Tabs */
+.station-selector {
+  background: white;
+  border-bottom: 2px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.tabs-container {
+  display: flex;
+  gap: 0;
+  padding: 0 20px;
+  min-width: min-content;
+}
+
+.station-tab {
+  padding: 12px 20px;
+  border: none;
+  background: transparent;
+  color: #666;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.station-tab:hover {
+  background: #f8f9fa;
+  color: #333;
+}
+
+.station-tab.active {
+  color: #333;
+  border-bottom-color: currentColor;
+}
+
+.station-tab .icon {
+  font-size: 18px;
+}
+
+.station-tab .name {
+  font-weight: 600;
+}
+
+.station-tab .queue-badge {
+  background: #ff6b6b;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 4px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Main Content */
+.station-main-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 0;
+  overflow: hidden;
+}
+
+/* Operator Panel */
+.operator-panel {
+  background: white;
+  border-right: 1px solid #e9ecef;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.operator-info h2 {
+  margin: 0 0 5px 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.operator-info p {
+  margin: 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.queue-stats {
+  display: grid;
+  gap: 10px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.stat-item .label {
+  color: #666;
+  font-weight: 500;
+}
+
+.stat-item .value {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.no-patient-section {
+  background: #f0f7f4;
+  border: 2px dashed #20c997;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.no-patient-section .message {
+  color: #666;
+  font-size: 14px;
+  margin: 0 0 15px 0;
+}
+
+.no-queue {
+  color: #999;
+  font-size: 12px;
+  margin: 0;
+}
+
+.current-patient-info {
+  background: #f0f7f4;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.current-patient-info h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #333;
+  font-weight: 600;
+}
+
+.patient-card {
+  background: white;
+  border: 2px solid #20c997;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.patient-card p {
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+.patient-name {
+  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+}
+
+.ticket-number {
+  color: #20c997;
+  font-weight: 600;
+}
+
+.patient-details {
+  color: #666;
+  font-size: 12px;
+}
+
+.queue-preview {
+  margin-top: auto;
+}
+
+.queue-preview .btn {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.queue-list {
+  max-height: 200px;
+  overflow-y: auto;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 8px 0;
+}
+
+.queue-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 12px;
+}
+
+.queue-item:last-child {
+  border-bottom: none;
+}
+
+.queue-item .position {
+  background: #20c997;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+  min-width: 24px;
+  text-align: center;
+}
+
+.queue-item .ticket {
+  background: #e9ecef;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: #333;
+}
+
+.queue-item .name {
+  flex: 1;
+  color: #666;
+}
+
+/* Station Component Wrapper */
+.station-component-wrapper {
+  flex: 1;
+  overflow: auto;
+  background: #fff;
+  position: relative;
+}
+
+.no-patient-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+}
+
+.placeholder-content {
+  text-align: center;
+  color: #999;
+}
+
+.placeholder-content .icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.placeholder-content .message {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.placeholder-content .instruction {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Button Styles */
+.btn {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #20c997;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #17a2b8;
+}
+
+.btn-secondary {
+  background: #e9ecef;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background: #dee2e6;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .station-main-content {
+    grid-template-columns: 300px 1fr;
+  }
+
+  .operator-panel {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .station-main-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .operator-panel {
+    max-height: 200px;
+    border-right: none;
+    border-bottom: 1px solid #e9ecef;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: flex-start;
+  }
+
+  .queue-preview {
+    margin-top: 0;
+    order: 10;
+    width: 100%;
+  }
+}

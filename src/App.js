@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
-import KioskView from "./components/kiosk/KioskView";
-import DisplayView from "./components/display/DisplayView";
-import AdminView from "./components/admin/AdminView";
+import StationManager from "./components/stations/StationManager";
 import SettingsPanel from "./components/SettingsPanel";
-import { useQMS } from "./hooks/useQMS";
+import { useStationQMS } from "./hooks/useStationQMS";
 import { loadSettings, saveSettings } from "./config/settings";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -12,12 +10,9 @@ export default function App() {
   const [view, setView] = useState("kiosk");
   const [settings, setSettings] = useState(loadSettings());
   const [showSettings, setShowSettings] = useState(false);
-  const { services, setServices, queues, nowServing, voiceOn, setVoiceOn, stats, resetStats, takeNumber, callNext, markDone, nextStep, previousStep, clearQueue } = useQMS(settings.services);
-
-  // Update services when settings change
-  useEffect(() => {
-    setServices(settings.services);
-  }, [settings.services, setServices]);
+  // Use the new station-based QMS hook
+  const qmsHook = useStationQMS();
+  const { voiceOn, setVoiceOn, stats } = qmsHook;
 
   const handleSettingsSave = (newSettings) => {
     setSettings(newSettings);
@@ -40,43 +35,9 @@ export default function App() {
         organizationName={settings.organization.name}
       />
       
-      {view === "kiosk" && (
-        <KioskView 
-          services={services} 
-          queues={queues} 
-          nowServing={nowServing} 
-          takeNumber={takeNumber}
-          stats={stats}
-          settings={settings}
-        />
-      )}
-      
-      {view === "display" && (
-        <DisplayView 
-          services={services} 
-          queues={queues} 
-          nowServing={nowServing}
-          announcements={settings.announcements}
-          healthTips={settings.healthTips}
-          settings={settings}
-        />
-      )}
-      
-      {view === "admin" && (
-        <AdminView 
-          services={services} 
-          setServices={setServices}
-          queues={queues} 
-          nowServing={nowServing} 
-          callNext={callNext}
-          markDone={markDone}
-          nextStep={nextStep}
-          previousStep={previousStep}
-          clearQueue={clearQueue}
-          stats={stats}
-          resetStats={resetStats}
-          settings={settings}
-        />
+      {/* Use the StationManager which implements the 6-station sequential flow */}
+      {(view === "kiosk" || view === "display" || view === "admin") && (
+        <StationManager qmsHook={qmsHook} />
       )}
 
       {showSettings && (

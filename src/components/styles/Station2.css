@@ -1,0 +1,352 @@
+/* src/components/styles/Station2.css */
+/* Station 2: Vital Signs - Styling */
+
+.station-2-container {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #198754 0%, #157347 100%);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.station-2-container .station-header {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+  color: white;
+  margin-bottom: 30px;
+}
+
+.station-2-container .station-title {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.station-2-container .station-number {
+  font-size: 18px;
+  font-weight: 500;
+  opacity: 0.9;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.station-2-container .station-title h1 {
+  font-size: 42px;
+  margin: 10px 0;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.station-2-container .station-title p {
+  font-size: 16px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.patient-info-banner {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  padding: 12px 20px;
+  margin-top: 15px;
+  font-size: 14px;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  max-width: 900px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.step.active,
+.step.completed {
+  opacity: 1;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.step.active .step-circle {
+  background: white;
+  color: #198754;
+  border-color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.step.completed .step-circle {
+  background: rgba(255, 255, 255, 0.8);
+  color: #198754;
+  border-color: white;
+}
+
+.step-label {
+  font-size: 12px;
+  color: white;
+  font-weight: 500;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 900px;
+  background: white;
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.step-content {
+  min-height: 300px;
+}
+
+.step-content h2 {
+  font-size: 28px;
+  margin: 0 0 10px 0;
+  color: #198754;
+}
+
+.step-instruction {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.check-in-card {
+  background: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.patient-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.patient-age,
+.patient-gender {
+  font-size: 16px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.instruction-text {
+  font-size: 14px;
+  color: #666;
+  margin-top: 15px;
+  font-style: italic;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #198754;
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
+}
+
+.form-group input.error,
+.form-group textarea.error {
+  border-color: #dc3545;
+}
+
+.error-message {
+  display: block;
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  align-items: flex-start;
+}
+
+.form-item {
+  width: 100%;
+}
+
+.separator {
+  font-size: 20px;
+  font-weight: bold;
+  color: #198754;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 15px;
+}
+
+.reference-normal {
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+  background: #e7f5f1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.vitals-summary {
+  background: #f0f7f4;
+  border-left: 4px solid #198754;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.vitals-summary h3 {
+  margin: 0 0 15px 0;
+  color: #198754;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(25, 135, 84, 0.1);
+  font-size: 14px;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  justify-content: center;
+}
+
+.btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #198754;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #157347;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
+}
+
+.btn-secondary {
+  background: #e9ecef;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background: #dee2e6;
+}
+
+.btn-success {
+  background: #198754;
+  color: white;
+}
+
+.btn-success:hover {
+  background: #157347;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(25, 135, 84, 0.3);
+}
+
+.btn-lg {
+  padding: 15px 40px;
+  font-size: 16px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-container {
+    padding: 20px;
+  }
+
+  .station-2-container .station-title h1 {
+    font-size: 28px;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
