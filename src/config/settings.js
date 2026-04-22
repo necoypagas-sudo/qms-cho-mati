@@ -13,7 +13,92 @@ export const DEFAULT_SETTINGS = {
     color: "#e40914",
   },
   
-  // Service workflows - Edit steps here as needed for your clinic
+  // 9-STEP PATIENT NAVIGATION FLOW (Mati PCF-Central)
+  // Official Patient Navigation System Flow
+  // See constants/stations.js for full implementation
+  patientFlow: {
+    enabled: true,
+    flowName: "9-Step Sequential Patient Journey",
+    description: "Official Patient Navigation System Flow for CHO Mati",
+    steps: [
+      {
+        step: 1,
+        code: "REG",
+        name: "Registration",
+        icon: "📝",
+        inputRequirements: ["Patient ID", "New Record"],
+      },
+      {
+        step: 2,
+        code: "VST",
+        name: "Vital Signs Taking",
+        icon: "🌡️",
+        inputRequirements: ["BP", "Temp", "Weight", "HR"],
+      },
+      {
+        step: 3,
+        code: "TRG",
+        name: "Interview / Triage",
+        icon: "📋",
+        inputRequirements: ["Severity Level", "Chief Complaint"],
+      },
+      {
+        step: 4,
+        code: "PCU",
+        name: "Primary Care Unit",
+        icon: "🏥",
+        inputRequirements: ["Assessment Data"],
+      },
+      {
+        step: 5,
+        code: "ENC1",
+        name: "Encoding (Primary)",
+        icon: "💻",
+        inputRequirements: ["EMR Data"],
+      },
+      {
+        step: 6,
+        code: "OPD",
+        name: "Outpatient Department",
+        icon: "🚪",
+        inputRequirements: ["Queue Assignment"],
+      },
+      {
+        step: 7,
+        code: "CONS",
+        name: "Consultation",
+        icon: "👨‍⚕️",
+        inputRequirements: ["Doctor's Notes", "Orders"],
+      },
+      {
+        step: 8,
+        code: "ENC2",
+        name: "Encoding (Ancillary)",
+        icon: "💊",
+        inputRequirements: ["Order Data"],
+      },
+      {
+        step: 9,
+        code: "ANCL",
+        name: "Ancillary Services",
+        icon: "⚕️",
+        inputRequirements: ["Service Selection"],
+      },
+    ],
+    ancillaryServices: [
+      { code: "LAB", name: "Laboratory", icon: "🧪" },
+      { code: "NIP", name: "National Immunization Program", icon: "💉" },
+      { code: "PHAR", name: "Pharmacy", icon: "💊" },
+      { code: "XRAY", name: "X-ray Imaging", icon: "📸" },
+      { code: "ECG", name: "Electrocardiogram", icon: "❤️" },
+      { code: "ABTC", name: "Animal Bite Treatment Center", icon: "🦟" },
+    ],
+    bottleneckThresholdMinutes: 30,
+    trackTimestamps: true,
+  },
+  
+  // Service workflows - Legacy support (kept for backward compatibility)
+  // Edit steps here as needed for your clinic
   // Best practice: Keep 2-3 visible steps per service for clarity
   // Triage should only be used for emergency services
   services: [
