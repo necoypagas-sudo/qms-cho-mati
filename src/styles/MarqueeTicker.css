@@ -1,0 +1,87 @@
+/* src/styles/MarqueeTicker.css */
+/* Marquee/Ticker Styles - Scrolling announcements */
+
+.marquee-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.marquee-text {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 0 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+/* Multi-marquee stacking */
+.multi-marquee {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.multi-marquee .marquee-container {
+  margin: 0;
+}
+
+.multi-marquee .marquee-container + .marquee-container {
+  margin-top: 2px;
+}
+
+/* Animation for smooth scrolling */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Responsive sizes */
+@media (min-width: 1920px) {
+  /* 4K TV optimization */
+  .marquee-text {
+    font-size: clamp(1.5rem, 2vw, 2.5rem);
+  }
+}
+
+@media (min-width: 1440px) and (max-width: 1919px) {
+  /* 1440p optimization */
+  .marquee-text {
+    font-size: clamp(1.2rem, 1.5vw, 2rem);
+  }
+}
+
+@media (min-width: 1080px) and (max-width: 1439px) {
+  /* 1080p optimization */
+  .marquee-text {
+    font-size: clamp(1rem, 1.2vw, 1.6rem);
+  }
+}
+
+@media (max-width: 1079px) {
+  /* Smaller screens */
+  .marquee-text {
+    font-size: clamp(0.8rem, 1vw, 1.2rem);
+  }
+}
+
+/* Accessibility - pause animation on hover */
+@media (hover: hover) and (pointer: fine) {
+  .marquee-container:hover .marquee-text {
+    animation-play-state: paused;
+  }
+}
+
+/* Print styles */
+@media print {
+  .marquee-container {
+    display: none;
+  }
+}
