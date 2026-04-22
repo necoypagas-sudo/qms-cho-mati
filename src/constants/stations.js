@@ -165,3 +165,15 @@ export const getPreviousStep = (currentStep) => {
 export const getAncillaryServiceById = (serviceId) => {
   return ANCILLARY_SERVICES.find((s) => s.id === serviceId);
 };
+
+export const getNextStation = (stationId) => {
+  const currentStation = getStationById(stationId);
+  if (!currentStation || currentStation.step >= 9) return null;
+  return getStationByStep(currentStation.step + 1);
+};
+
+export const getPreviousStation = (stationId) => {
+  const currentStation = getStationById(stationId);
+  if (!currentStation || currentStation.step <= 1) return null;
+  return getStationByStep(currentStation.step - 1);
+};
